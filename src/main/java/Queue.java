@@ -1,11 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 /**
  * Created by pacman29 on 11.05.17.
@@ -28,7 +20,7 @@ public class Queue<T extends Comparable> {
         return null;
     }
 
-    public T pop(){
+    public T pop() throws EmptyQueueExeption{
         return null;
     }
 
@@ -44,5 +36,8 @@ public class Queue<T extends Comparable> {
         return null;
     }
 
+    public boolean isEmpty(){
+        return this.count() == 0;
+    }
 
 }
