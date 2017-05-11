@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class MaxMinStack<T extends Comparable> {
@@ -74,4 +75,5 @@ public class MaxMinStack<T extends Comparable> {
     public boolean isEmpty(){
         return stack.isEmpty();
     }
+
 }

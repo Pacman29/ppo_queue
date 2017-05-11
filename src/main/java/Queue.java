@@ -1,3 +1,8 @@
+import com.sun.deploy.util.ArrayUtil;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.lang.reflect.Array;
+import java.util.Collections;
 import java.util.EmptyStackException;
 
 /**
@@ -81,10 +86,6 @@ public class Queue<T extends Comparable> {
 
     public int count(){
         return input_st.count() + output_st.count();
-    }
-
-    public T[] toArray(){
-        return null;
     }
 
     public boolean isEmpty(){
