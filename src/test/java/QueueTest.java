@@ -139,7 +139,7 @@ public class QueueTest {
     }
 
     @Test
-    public void min() throws Exception{
+    public void testMin() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
 
         queues.get(0).min();
@@ -166,7 +166,7 @@ public class QueueTest {
     }
 
     @Test
-    public void max() throws Exception{
+    public void testMax() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
 
         queues.get(0).min();
