@@ -32,9 +32,6 @@ public class Queue<T extends Comparable> {
         return 0;
     }
 
-    public T[] toArray(){
-        return null;
-    }
 
     public boolean isEmpty(){
         return this.count() == 0;

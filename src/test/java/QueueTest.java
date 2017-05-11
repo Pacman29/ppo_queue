@@ -35,35 +35,6 @@ public class QueueTest {
         assertTrue(queues.get(2).isEmpty());
     }
 
-    @Test
-    public void testToArray() throws Exception{
-        ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
-        queues.add(new Queue<Integer>());
-        queues.add(new Queue<Integer>());
-        queues.add(new Queue<Integer>());
-        Integer expect[] = new Integer[0];
-        assertEquals(expect,queues.get(0).toArray());
-        queues.get(1).push(1);
-        queues.get(1).push(2);
-        queues.get(1).push(3);
-        expect[0] = 1;
-        expect[1] = 2;
-        expect[2] = 3;
-        assertEquals(expect,queues.get(1).toArray());
-
-        queues.get(2).push(1);
-        queues.get(2).push(2);
-        queues.get(2).push(3);
-        queues.get(2).push(4);
-        queues.get(2).push(5);
-        queues.get(2).push(6);
-
-        queues.get(2).pop();
-        queues.get(2).pop();
-        queues.get(2).pop();
-
-        assertEquals(expect,queues.get(2).toArray());
-    }
 
     @Test
     public void testCount() throws Exception{
