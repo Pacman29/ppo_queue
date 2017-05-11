@@ -84,7 +84,7 @@ public class QueueTest {
         queues.get(2).pop();
         queues.get(2).pop();
 
-        assertEquals("1,2,3",queues.get(2).toString());
+        assertEquals("4,5,6",queues.get(2).toString());
     }
 
     @Test
