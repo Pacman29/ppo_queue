@@ -46,10 +46,16 @@ public class MaxMinStack<T extends Comparable> {
     }
 
     public T pop(){
+        if(stack.isEmpty()){
+            throw new EmptyStackException();
+        }
         return stack.pop().getValue();
     }
 
-    public Trio<T> pop_trio(){
+    public Trio<T> pop_trio() throws EmptyStackException{
+        if(stack.isEmpty()){
+            throw new EmptyStackException();
+        }
         return stack.pop();
     }
 
@@ -59,5 +65,13 @@ public class MaxMinStack<T extends Comparable> {
 
     public Trio<T> peek_trio(){
         return stack.peek();
+    }
+
+    public int count(){
+        return stack.size();
+    }
+
+    public boolean isEmpty(){
+        return stack.isEmpty();
     }
 }

@@ -15,11 +15,14 @@ import static org.junit.Assert.assertTrue;
 public class QueueTest {
 
     @Rule
-    public ExpectedException exc;
+    public ExpectedException exc = ExpectedException.none();
 
     @Test
     public void testIsEmpty() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
         queues.get(0).push(0);
         queues.get(0).push(0);
         queues.get(0).push(0);
@@ -35,6 +38,9 @@ public class QueueTest {
     @Test
     public void testToArray() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
         Integer expect[] = new Integer[0]; 
         assertEquals(expect,queues.get(0).toArray());
         queues.get(1).push(1);
@@ -62,6 +68,9 @@ public class QueueTest {
     @Test
     public void testCount() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
         assertEquals(0,queues.get(0).count());
         queues.get(1).push(1);
         queues.get(1).push(2);
@@ -85,6 +94,9 @@ public class QueueTest {
     @Test
     public void testToString() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
         assertEquals("",queues.get(0).toString());
         queues.get(1).push(1);
         queues.get(1).push(2);
@@ -107,9 +119,13 @@ public class QueueTest {
     @Test
     public void testPop() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
 
-        queues.get(0).pop();
         exc.expect(EmptyQueueExeption.class);
+        queues.get(0).pop();
+
 
         queues.get(1).push(1);
         queues.get(1).push(2);
@@ -139,11 +155,15 @@ public class QueueTest {
     }
 
     @Test
-    public void min() throws Exception{
+    public void testMin() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
 
-        queues.get(0).min();
         exc.expect(EmptyQueueExeption.class);
+        queues.get(0).min();
+
 
         queues.get(1).push(1);
         queues.get(1).push(2);
@@ -166,11 +186,14 @@ public class QueueTest {
     }
 
     @Test
-    public void max() throws Exception{
+    public void testMax() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
+        queues.add(new Queue<Integer>());
 
-        queues.get(0).min();
         exc.expect(EmptyQueueExeption.class);
+        queues.get(0).max();
 
         queues.get(1).push(1);
         queues.get(1).push(2);
