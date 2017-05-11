@@ -169,7 +169,7 @@ public class QueueTest {
     public void testMax() throws Exception{
         ArrayList<Queue<Integer>> queues = new ArrayList<Queue<Integer>>(3);
 
-        queues.get(0).min();
+        queues.get(0).max();
         exc.expect(EmptyQueueExeption.class);
 
         queues.get(1).push(1);
