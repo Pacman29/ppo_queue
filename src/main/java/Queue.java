@@ -81,7 +81,21 @@ public class Queue<T extends Comparable> {
     }
 
     public String toString(){
-        return null;
+
+        Object[] in = input_st.toArray();
+        Object[] out = output_st.toArray();
+
+        ArrayUtils.reverse(out);
+        Object[] tmp = ArrayUtils.addAll(out,in);
+        if(tmp.length == 0){
+            return "";
+        }
+        String res = "";
+        for(Object iter : tmp){
+            res += ((T)iter).toString() + ",";
+        }
+        res = res.substring(0,res.length()-1);
+        return res;
     }
 
     public int count(){

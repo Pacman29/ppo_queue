@@ -76,4 +76,12 @@ public class MaxMinStack<T extends Comparable> {
         return stack.isEmpty();
     }
 
+    public Object[] toArray(){
+        Object tmp[] = new Object[stack.size()];
+        int i = 0;
+        for (Trio<T> trio: stack ){
+            tmp[i++] = trio.getValue();
+        }
+        return tmp;
+    }
 }
