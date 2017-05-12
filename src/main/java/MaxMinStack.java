@@ -1,16 +1,21 @@
-import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class MaxMinStack<T extends Comparable> {
+
+   // ReadWriteLock rwlock = new ReentrantReadWriteLock();
     Stack<Trio<T>> stack = new Stack<Trio<T>>();
 
     public MaxMinStack() {
     }
 
     public T push(T item){
+        //rwlock.writeLock().lock();
         Trio<T> tmp = new Trio<T>(item,item,item);
         if(stack.isEmpty()){
             stack.push(tmp);
+            //rwlock.writeLock().unlock();
             return item;
         }
 
@@ -24,12 +29,15 @@ public class MaxMinStack<T extends Comparable> {
         }
 
         stack.push(tmp);
+        //rwlock.writeLock().unlock();
         return item;
     }
 
     public Trio<T> push_trio(Trio<T> item){
+        //rwlock.writeLock().lock();
         if(stack.isEmpty()){
             stack.push(item);
+            //rwlock.writeLock().unlock();
             return item;
         }
 
@@ -43,6 +51,7 @@ public class MaxMinStack<T extends Comparable> {
         }
 
         stack.push(item);
+        //rwlock.writeLock().unlock();
         return item;
     }
 
@@ -50,38 +59,58 @@ public class MaxMinStack<T extends Comparable> {
         if(stack.isEmpty()){
             throw new EmptyStackException();
         }
-        return stack.pop().getValue();
+        //rwlock.readLock().lock();
+        T res =  stack.pop().getValue();
+        //rwlock.readLock().unlock();
+        return res;
     }
 
     public Trio<T> pop_trio() throws EmptyStackException{
         if(stack.isEmpty()){
             throw new EmptyStackException();
         }
-        return stack.pop();
+        //rwlock.readLock().lock();
+        Trio res =  stack.pop();
+        //rwlock.readLock().unlock();
+        return res;
     }
 
     public T peek(){
-        return stack.peek().getValue();
+        //rwlock.readLock().lock();
+        T res =  stack.peek().getValue();
+        //rwlock.readLock().unlock();
+        return res;
     }
 
     public Trio<T> peek_trio(){
-        return stack.peek();
+        //rwlock.readLock().lock();
+        Trio res =  stack.peek();
+        //rwlock.readLock().unlock();
+        return res;
     }
 
     public int count(){
-        return stack.size();
+        //rwlock.readLock().lock();
+        int res =  stack.size();
+       // rwlock.readLock().unlock();
+        return res;
     }
 
     public boolean isEmpty(){
-        return stack.isEmpty();
+        //rwlock.readLock().lock();
+        boolean res =  stack.isEmpty();
+        //rwlock.readLock().unlock();
+        return res;
     }
 
     public Object[] toArray(){
+       // rwlock.readLock().lock();
         Object tmp[] = new Object[stack.size()];
         int i = 0;
         for (Trio<T> trio: stack ){
             tmp[i++] = trio.getValue();
         }
+       // rwlock.readLock().unlock();
         return tmp;
     }
 }
