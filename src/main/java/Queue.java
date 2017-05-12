@@ -70,7 +70,7 @@ public class Queue<T extends Comparable> {
                 T in_min = input_st.peek_trio().getMin();
                 T out_min = output_st.peek_trio().getMin();
 
-                result = in_min.compareTo(out_min) == 1 ? in_min : out_min;
+                result = in_min.compareTo(out_min) == -1 ? in_min : out_min;
             }
         }
         rwlock.readLock().unlock();
