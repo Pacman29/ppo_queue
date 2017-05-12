@@ -24,7 +24,7 @@ public class Queue<T extends Comparable> {
     public T max() throws EmptyQueueExeption{
         T result;
         rwlock.readLock().lock();
-        {
+        try {
             if (this.count() == 0) {
                 throw new EmptyQueueExeption();
             }
@@ -44,15 +44,17 @@ public class Queue<T extends Comparable> {
 
                 result = in_max.compareTo(out_max) == 1 ? in_max : out_max;
             }
+        } finally {
+            rwlock.readLock().unlock();
         }
-        rwlock.readLock().unlock();
+
         return result;
     }
 
     public T min() throws EmptyQueueExeption{
         T result;
         rwlock.readLock().lock();
-        {
+        try {
             if (this.count() == 0) {
                 throw new EmptyQueueExeption();
             }
@@ -70,35 +72,8 @@ public class Queue<T extends Comparable> {
                 T in_min = input_st.peek_trio().getMin();
                 T out_min = output_st.peek_trio().getMin();
 
-                result = in_min.compareTo(out_min) == 1 ? in_min : out_min;
+                result = in_min.compareTo(out_min) == -1 ? in_min : out_min;
             }
-        }
-        rwlock.readLock().unlock();
-        return result;
-    }
-
-    public T push(T item){
-        rwlock.writeLock().lock();
-        {
-            input_st.push(item);
-        }
-        rwlock.writeLock().unlock();
-        return item;
-    }
-
-    public T pop() throws EmptyQueueExeption{
-        rwlock.readLock().lock();
-        if(output_st.isEmpty()){
-            while (!input_st.isEmpty()){
-                output_st.push_trio(input_st.pop_trio());
-            }
-        }
-
-        T result;
-        try {
-            result = output_st.pop();
-        } catch (EmptyStackException e){
-            throw new EmptyQueueExeption();
         } finally {
             rwlock.readLock().unlock();
         }
@@ -106,10 +81,42 @@ public class Queue<T extends Comparable> {
         return result;
     }
 
+    public T push(T item){
+        rwlock.writeLock().lock();
+        try {
+            input_st.push(item);
+        } finally {
+            rwlock.writeLock().unlock();
+        }
+
+        return item;
+    }
+
+    public T pop() throws EmptyQueueExeption{
+        rwlock.writeLock().lock();
+        T result;
+        {
+            if (output_st.isEmpty()) {
+                while (!input_st.isEmpty()) {
+                    output_st.push_trio(input_st.pop_trio());
+                }
+            }
+
+            try {
+                result = output_st.pop();
+            } catch (EmptyStackException e) {
+                throw new EmptyQueueExeption();
+            } finally {
+                rwlock.writeLock().unlock();
+            }
+        }
+        return result;
+    }
+
     public String toString(){
         rwlock.readLock().lock();
         String res = "";
-        {
+        try {
             Object[] in = input_st.toArray();
             Object[] out = output_st.toArray();
 
@@ -122,22 +129,34 @@ public class Queue<T extends Comparable> {
                 res += ((T)iter).toString() + ",";
             }
             res = res.substring(0,res.length()-1);
+        } finally {
+            rwlock.readLock().unlock();
         }
-        rwlock.readLock().unlock();
+
         return res;
     }
 
     public int count(){
         rwlock.readLock().lock();
-            int res =  input_st.count() + output_st.count();
-        rwlock.readLock().unlock();
+        int res;
+        try {
+            res = input_st.count() + output_st.count();
+        } finally {
+            rwlock.readLock().unlock();
+        }
+
         return res;
     }
 
     public boolean isEmpty(){
         rwlock.readLock().lock();
-        boolean res =  this.count() == 0;
-        rwlock.readLock().unlock();
+        boolean res;
+        try {
+            res =  this.count() == 0;
+        } finally {
+            rwlock.readLock().unlock();
+        }
+
         return res;
     }
 
